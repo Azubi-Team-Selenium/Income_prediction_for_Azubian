@@ -26,7 +26,7 @@
 
 # Income prediction for Azubian <a name="about-project"></a>
 
-**Income_prediction_for_Azubian** Income inequality, characterized by the uneven distribution of income within a population, is a growing concern in developing nations worldwide. The rapid advancement of AI and automation could exacerbate this issue if not addressed. This challenge aims to develop a machine learning model that predicts whether an individual earns above or below a certain income threshold. By leveraging such models, we can potentially reduce costs and enhance the accuracy of monitoring critical population indicators, such as income levels, between census years. This information is crucial for policymakers to better manage and mitigate income inequality on a global scale.
+**Income Prediction Challenge for Azubian** Income inequality, characterized by the uneven distribution of income within a population, is a growing concern in developing nations worldwide. The rapid advancement of AI and automation could exacerbate this issue if not addressed. This challenge aims to develop a machine learning model that predicts whether an individual earns above or below a certain income threshold. By leveraging such models, we can potentially reduce costs and enhance the accuracy of monitoring critical population indicators, such as income levels, between census years. This information is crucial for policymakers to better manage and mitigate income inequality on a global scale.
 
 
 ### Data Dictionary
