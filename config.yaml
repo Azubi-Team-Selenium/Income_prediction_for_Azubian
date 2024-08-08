@@ -11,9 +11,9 @@ credentials:
       name: Guest
       password: selenium2025 # To be replaced with hashed password
     gakuuser:
-      email: wolakuma@gmail.com
+      email: successkwawu@gmail.com
       logged_in: False
-      name: Gabriel Kuma
+      name: Success Kwawu
       password: selenium2026 # To be replaced with hashed password
 cookie:
   expiry_days: 30

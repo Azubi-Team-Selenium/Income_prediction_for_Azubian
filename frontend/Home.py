@@ -60,15 +60,13 @@ video_url = "https://ar-website-assets.s3.eu-west-3.amazonaws.com/AR-metaball.mp
 
 logo_path = "../images/second.png"
 
-lottie_img = lottie_url("https://lottie.host/80d6a368-c787-4f59-8eca-9b649cf41b1b/VdfzfJeXsp.json")
+lottie_img = lottie_url("https://lottie.host/9f50ad42-37fa-48db-870c-74b018740507/3i0ws9t1Di.json")
 
 lottie_home = lottie_url("https://lottie.host/688abbd4-b507-4a63-867a-66b08b13eda1/pQtDrgPxsS.json")
 
 st.sidebar.markdown("Hi!")
-with st.sidebar:
-    st.logo(logo_path)
 
-selected = option_menu(None, options=["Why Income IQ", "About Us", "Upload", "Get in Touch"], 
+selected = option_menu(None, options=["Why Income IQ", "About Us", "Explore", "Get in Touch"], 
     icons=['house','gear', 'cloud-upload'], 
     menu_icon="cast", default_index=0, orientation="horizontal")
 selected
@@ -170,15 +168,76 @@ if selected == "About Us":
 #st.image()
 
 
-if selected == "Upload":
-        st.title("Explore?")
-        st.markdown("""
-                    #### We use our three powerful machine learning algorithms models to predict the risk of churn:
-                    -  ##### Catboost
-                    - ##### Logistic Regression
-                    - ##### SQB
-                    #### Want to try out with your own dataset? Say less!
-                    #### Just upload here in one click!""")
-        data_button = st.button("Upload your data",key="data")
-        if data_button:
-                switch_page("Bulk_Prediction")  
+if selected == "Get in Touch":
+        st.header("Get In Touch With Us!")
+        with st.container():
+            col1, col2 = st.columns([2,1])
+            with col1:
+
+
+
+
+                contact_form = """
+                <form action="https://formsubmit.co/adubrightkwarrteng11@gmail,com" method="POST">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="text" name="name" placeholder="Your name" required>
+                    <input type="email" name="email" placeholder="Your email" required>
+                    <textarea name="message" placeholder="Your message here"></textarea>
+                    <button type="submit">Send</button>
+                </form>
+                """
+
+                st.markdown(contact_form, unsafe_allow_html=True)
+
+                # Use Local CSS File
+                def local_css(file_name):
+                    with open(file_name) as f:
+                        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
+                local_css("../style/style.css")
+
+            with col2:
+                     st_lottie(
+                lottie_img,
+                speed=0.05,
+                reverse= False,
+                loop=True,
+                quality="high",
+                key="coding",
+                height=300,
+                width=300)
+            st.write("""
+        If you have any questions or need assistance, feel free to reach out to our support team at [support@example.com](mailto:support@example.com).""")
+                    
+            
+            st.write("---")
+            st.write("##")
+
+        
+        with st.container():
+                    st.header("""Privacy and Security""")
+                    st.write("""Your privacy is our priority. All data entered into the Income IQ is securely stored and handled with the utmost confidentiality.
+        """)
+                    st.write("##")
+                    st.write("##")
+            
+                    st.write("""
+
+
+        Thank you for choosing Income IQ. We are excited to help you plan for a brighter financial future!
+        """
+        )
+if selected == "Explore":
+            st.markdown("""
+                        Connect data from CSV, XLSX, or Google Sheets to any App, API, or FTP server in minutes
+                        Works with tools you already use. Simple, no-code setup.
+                        Automate end-to-end.#### We use our three powerful machine learning algorithms models to predict the risk of churn:
+                        -  ##### Catboost
+                        - ##### Logistic Regression
+                        - ##### SQB
+                        #### Want to try out with your own dataset? Say less!
+                        #### Just upload here in one click!""")
+            data_button = st.button("Upload data")#key="data")
+            if data_button:
+                switch_page("Bulk_Prediction") 
