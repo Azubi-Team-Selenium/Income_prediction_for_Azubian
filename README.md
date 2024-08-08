@@ -209,13 +209,13 @@ In order to run this project, you need:
    Open your terminal or command prompt and pull the required Docker images from Dockerhub using the following commands:
 
    ``` sh
-   docker pull brightadu/sepsis-predict-api:v1.0
-   docker pull brightadu/sepsis-predict-client:v1.0
+   docker pull 
+   docker pull 
    ```
 
   ``` sh
-   docker run -d --name mycontainer -p 8000:8000 brightadu/sepsis-predict-api:v1.0
-   docker run -d --name mycontainer -p 8000:8000 brightadu/sepsis-predict-client:v1.0
+   docker run -d --name mycontainer -p
+   docker run -d --name mycontainer -p 
    ```
 
 
