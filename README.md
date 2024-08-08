@@ -80,7 +80,7 @@
 
 
 ## 🛠 Built With <a name="Technologies Used"></a>
-The Income_prediction_for_Azubian Project was done following the CRISP-DM process. It also involved a variety of technologies, programming languages, and libraries to process, analyze, and visualize the data. The following tools were utilized:
+Income Prediction Challenge for Azubian was done following the CRISP-DM process. It also involved a variety of technologies, programming languages, and libraries to process, analyze, and visualize the data. The following tools were utilized:
 1. _Python_: Python programming language was the backbone of the project, used for data processing, analysis, and visualization tasks.
 
 2. _Pandas_ and NumPy: Pandas and NumPy libraries were essential for data manipulation and numerical computations.
