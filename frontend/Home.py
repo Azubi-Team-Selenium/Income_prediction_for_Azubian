@@ -103,12 +103,12 @@ if selected == "Why Income IQ":
     colc, cold = st.columns(2)
     with colc:
         st.markdown("""### Key Features
-- **User-Friendly Interface:** Easy to navigate and input your data.
-- **Accurate Predictions:** Our advanced algorithms analyze your input to provide precise income predictions.
-- **Personalized Insights:** Get tailored advice based on your unique profile.
-- **Comprehensive Data Analysis:** Explore detailed breakdowns of your predicted income and the factors influencing it."""
-            
-        )
+    - **User-Friendly Interface:** Easy to navigate and input your data.
+    - **Accurate Predictions:** Our advanced algorithms analyze your input to provide precise income predictions.
+    - **Personalized Insights:** Get tailored advice based on your unique profile.
+    - **Comprehensive Data Analysis:** Explore detailed breakdowns of your predicted income and the factors influencing it."""
+                
+            )
     with cold:
         st.image("https://en.idei.club/uploads/posts/2023-06/1687164524_en-idei-club-p-blue-technology-background-dizain-pinteres-2.png")
     st.write("---")          
