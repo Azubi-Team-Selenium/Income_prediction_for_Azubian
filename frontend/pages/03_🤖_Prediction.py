@@ -4,7 +4,8 @@ import requests
 import streamlit_authenticator as stauth
 import yaml
 from yaml.loader import SafeLoader
-
+import pandas as pd
+import datetime
 
 
 
@@ -87,7 +88,7 @@ else:
             else:
                 st.session_state[key] = ""
 
-    import streamlit as st
+    
 
     # Define function to accept inputs and display forms
     def display_forms():
@@ -195,37 +196,53 @@ else:
         # Check if the selected model is XGB Classifier
         if st.session_state["selected_model"] == "XGB Classifier":
             # Send api response to the XGB classifier api
-            xgb_response = requests.post(xgb_classifier_endpoint, json=input_features)
-            if xgb_response.status_code == 200:
-                # print the status code
-                print("API response successful")
-                # print the prediction
-                prediction = xgb_response.json()["prediction"]
-                probability = xgb_response.json()["prediction_probability"]
-                st.divider()
-                st.success(f"Your Income status is {prediction} with probabilties {probability}")
-            else:
-                st.error(f"Error: {xgb_response.json()["error"]}")
-
-        #Make prediction with the Gradient Boost Model
+            response = requests.post(xgb_classifier_endpoint, json=input_features)
         else:
-            gdb_response = requests.post(xgb_classifier_endpoint, json=input_features)
-            if gdb_response.status_code == 200:
-                print("API response successful")
-                prediction = gdb_response.json()["prediction"]
-                probability = gdb_response.json()["prediction_probability"]
-                st.divider()
-                st.success(f"Your Income Status is {prediction} with probabilties {probability}")
+            response = requests.post(gradient_boost_endpoint, json=input_features)
+        if response.status_code == 200:
+            result = response.json()
+            # print the prediction
+            model_used = result.get("model_used")
+            prediction = result.get("prediction")
+            probability = result.get("prediction_probability")
+            st.divider()
+            st.success(f"Your Income status is {prediction} with a probability of {probability}")
+            return input_features, model_used,prediction, probability
+        
+        else:
+            st.error(f"Error: {response.json()["error"]}")
+            return None, None
 
-            else:
-                st.error(f"Error: {gdb_response.json()['error']}")
+    def save_predictions():
+        input_features, model_used, prediction, probability = make_prediction()
+        # Get the timestamp of prediction
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        input_features["model_used"] = model_used
+        input_features["prediction"] = prediction
+        input_features["probability"] = probability
+        input_features["prediction_time"] =  timestamp
+
+        # Load existind data if it exists
+        if os.path.exists("prediction_history.csv"):
+            history_df = pd.read_csv("prediction_history.csv")
+        else:
+            history_df = pd.DataFrame()
+
+        # Convert the new prediction to a DataFrame
+        new_entry_df = pd.DataFrame([input_features])
+
+        # Append the new prediction to the history
+        history_df = pd.concat([history_df,new_entry_df], ignore_index=True)
+        # export df as prediction_history.csv
+        history_df.to_csv('../data/prediction_history.csv',mode="a", header=not os.path.exists('../data/prediction_history.csv'),index=False)
+        
+    
 
     if __name__ == "__main__":
         # call the display form function
         submit_button = display_forms()
-
         # Make predictions if submit button is clicked
         if submit_button:
-            make_prediction()
+            save_predictions()
 
     
