@@ -4,17 +4,17 @@ credentials:
       email: florencelaryea88@gmail.com
       logged_in: False
       name: Florence Laryea
-      password: selenium2024 # To be replaced with hashed password
-    brkwuser:
+      password: "$2b$12$z4Y8vLl.q5DSwgejcA6K4eH4LpjD3.Jtw5xkUD9n35.IdKtjO3c7a"
+    guestuser:
       email: adubrightkwarrteng11@gmail.com
       logged_in: False
       name: Guest
-      password: selenium2025 # To be replaced with hashed password
+      password: "$2b$12$1GN64BTXvEzWCRSRzOzoS.Usm0SoikI4lPKmsaBy6yOk3iBs0KNZW" 
     gakuuser:
       email: successkwawu@gmail.com
       logged_in: False
       name: Success Kwawu
-      password: selenium2026 # To be replaced with hashed password
+      password: "$2b$12$5FkauNTif3Cd7RT9Xmn0u.KAmTJ5MJMo7/7xtRWyuWGGYJg2LkSae" 
 cookie:
   expiry_days: 30
   key: random_signature_key # Must be string
@@ -22,3 +22,4 @@ cookie:
 pre-authorized:
   emails:
   - florence.laryea@azubiafrica.org
+
