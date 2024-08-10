@@ -86,12 +86,11 @@ async def income_status_prediction(data:IncomeStatusFeatures):
         # Inverse predictions to original status
         inverse_prediction = encoder.inverse_transform([prediction])[0]
         prediction_proba = xgb_classifier_pipeline.predict_proba(df)[0].tolist()
+        probability = prediction_proba[prediction]
 
         response = {"model_used":"XGB Classifier",
                     "prediction": inverse_prediction,
-                    "prediction_probability":
-                    {"Above limit":round(prediction_proba[0],2),
-                     "Below limit":round(prediction_proba[1],2)}
+                    "prediction_probability": round(probability,2)
                     }
         return response
     except Exception as e:
@@ -113,11 +112,10 @@ async def income_status_prediction(data:IncomeStatusFeatures):
         inverse_prediction = encoder.inverse_transform([prediction])[0]
         prediction_proba = gradient_boost_pipeline.predict_proba(df)[0].tolist()
 
+        probability = prediction_proba[prediction]
         response = {"model_used":"Gradient Boosting Algorithm",
                     "prediction": inverse_prediction,
-                    "prediction_probability":
-                    {"Above limit":round(prediction_proba[0],2),
-                     "Below limit":round(prediction_proba[1],2)}
+                    "prediction_probability": round(prediction,2)
                     }
         return response
     except Exception as e:
