@@ -60,10 +60,13 @@ else:
         if r.status_code != 200:
             return None                 
         return r.json()
+
     
     video_url = lottie_url("https://lottie.host/4daa3a00-5997-4968-8167-dbda109a159b/hTqEP6E4eV.json")
 
     mach_img = lottie_url("https://lottie.host/f3cc30b8-c8a9-4ff9-b098-badb339f1156/ey8S2pPCHT.json")
+
+    
 
     lottie_img = lottie_url("https://lottie.host/9f50ad42-37fa-48db-870c-74b018740507/3i0ws9t1Di.json")
 
