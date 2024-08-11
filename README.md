@@ -123,7 +123,7 @@ Income Prediction Challenge for Azubian was done following the CRISP-DM process.
 - Accuracy: The model's should obtain an accuracy of 75% or higher.
 - Precision and Recall:The final model should maintain both Precision and Recall scores of 0.75 or above.
 - F1 Score: The final model should attain an F1 score of 0.75 to 0.85 or higher according to state-of-the-art SOTA models
-Area Under the Receiver Operating Characteristic Curve (AUC-ROC): According to the state-of-the-art SOTA models for sepsis prediction should achieve AUC-ROC scores in the range of 0.80 to 0.90 or higher.
+Area Under the Receiver Operating Characteristic Curve (AUC-ROC): According to the state-of-the-art SOTA models for income prediction should achieve AUC-ROC scores in the range of 0.80 to 0.90 or higher.
 
 ## Key Insights <a name="key-Insights"></a>
 The distilled recommendations are as follows:
