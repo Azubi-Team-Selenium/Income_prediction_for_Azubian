@@ -60,11 +60,11 @@ else:
         if r.status_code != 200:
             return None                 
         return r.json()
-    video_file = open("../images/AR-metaball.mp4", "rb")
+    video_file = open("./images/AR-metaball.mp4", "rb")
     video_bytes = video_file.read()
     video_url = "https://ar-website-assets.s3.eu-west-3.amazonaws.com/AR-metaball.mp4"
 
-    logo_path = "../images/second.png"
+    logo_path = "./images/second.png"
 
     lottie_img = lottie_url("https://lottie.host/9f50ad42-37fa-48db-870c-74b018740507/3i0ws9t1Di.json")
 
