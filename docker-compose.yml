@@ -5,3 +5,16 @@ services:
      context: "./backend"
     ports:
      - "8080:8080"
+  frontend:
+    build:
+      context: "./frontend"
+    ports:
+     - "7000:7000"
+    depends_on:
+     - backend
+    networks:
+     - app-network
+
+networks:
+  app-network:
+    driver: bridge

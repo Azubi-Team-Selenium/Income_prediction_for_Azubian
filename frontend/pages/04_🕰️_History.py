@@ -51,7 +51,7 @@ else:
             # get the path of the history data
             csv_path = "../data/prediction_history.csv"
             if os.path.exists(csv_path):
-                history_data= pd.read_csv(csv_path, delimiter=",")
+                history_data= pd.read_csv(csv_path, index_col="id")
                 st.dataframe(history_data)
             else:
                 st.write("No history data found")

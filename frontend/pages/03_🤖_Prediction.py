@@ -54,10 +54,14 @@ else:
     # set title of the application
     st.title("Income Status Prediction 🤖")
 
-    # load api endpoints 
-    xgb_classifier_endpoint =  "http://127.0.0.1:8000/predict-income-status/xgb_classifier"
-    gradient_boost_endpoint =  "http://127.0.0.1:8000/predict-income-status/gradient_boosting" 
-        
+
+    # backend url
+    xgb_classifier_endpoint =  "https://income-iq-backend-latest.onrender.com/predict-income-status/xgb_classifier"
+    gradient_boost_endpoint =  "https://income-iq-backend-latest.onrender.com/predict-income-status/gradient_boosting" 
+    
+    
+    
+    
         
 
     # select a model to use
@@ -186,58 +190,76 @@ else:
                 st.number_input("Veterans Benefits (1- 'Yes', 2- 'No', 3- 'Not sure')", min_value=1, max_value=3, step=1, key="vet_benefit")
                 st.number_input("Please enter the Importance of Record", min_value=0, max_value=1000, key="importance_of_record")
 
-                # Add form submit button
-                submit_button = st.form_submit_button("Make Prediction", type="primary", use_container_width=True)
+            # Add form submit button
+            submit_button = st.form_submit_button("Make Prediction", type="primary", use_container_width=True)
         return submit_button
+
 
     # Define function to make prediction
     def make_prediction():
         input_features = {key: st.session_state[key] for key in input_keys}
         # Check if the selected model is XGB Classifier
         if st.session_state["selected_model"] == "XGB Classifier":
-            # Send api response to the XGB classifier api
+            # Send API request to the XGB classifier API
             response = requests.post(xgb_classifier_endpoint, json=input_features)
         else:
             response = requests.post(gradient_boost_endpoint, json=input_features)
-        if response.status_code == 200:
-            result = response.json()
-            # print the prediction
-            model_used = result.get("model_used")
-            prediction = result.get("prediction")
-            probability = result.get("prediction_probability")
-            st.divider()
-            st.success(f"Your Income status is {prediction} with a probability of {probability}")
-            return input_features, model_used,prediction, probability
         
+        if response.status_code == 200:
+            try:
+                result = response.json()
+                # Ensure all required keys exist in the response
+                if all(key in result for key in ["model_used", "prediction", "prediction_probability"]):
+                    model_used = result.get("model_used")
+                    prediction = result.get("prediction")
+                    probability = result.get("prediction_probability")
+                    st.divider()
+                    st.success(f"Your Income status is {prediction} with a probability of {probability}")
+                    return input_features, model_used, prediction, probability
+                else:
+                    st.error("Error: Unexpected response format from API.")
+            except ValueError:
+                st.error("Error: Failed to parse response from API.")
         else:
-            st.error(f"Error: {response.json()["error"]}")
-            return None, None
+            st.error("Error: An error occurred while contacting the API.")
+        
+        return None, None, None, None  # Return None values if an error occurs
+
 
     def save_predictions():
         input_features, model_used, prediction, probability = make_prediction()
-        # Get the timestamp of prediction
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        input_features["model_used"] = model_used
-        input_features["prediction"] = prediction
-        input_features["probability"] = probability
-        input_features["prediction_time"] =  timestamp
-
-        # Load existind data if it exists
-        if os.path.exists("prediction_history.csv"):
-            history_df = pd.read_csv("prediction_history.csv")
-        else:
-            history_df = pd.DataFrame()
-
-        # Convert the new prediction to a DataFrame
-        new_entry_df = pd.DataFrame([input_features])
-
-        # Append the new prediction to the history
-        history_df = pd.concat([history_df,new_entry_df], ignore_index=True)
-        # export df as prediction_history.csv
-        history_df.to_csv('../data/prediction_history.csv',mode="a", header=not os.path.exists('../data/prediction_history.csv'),index=False)
         
-    
+        if model_used is not None:
+            # Get the timestamp of prediction
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            input_features["id"] = st.session_state["id"]
+            input_features["model_used"] = model_used
+            input_features["prediction"] = prediction
+            input_features["probability"] = probability
+            input_features["prediction_time"] = timestamp
 
+            # Load existing data if it exists
+            if os.path.exists("prediction_history.csv"):
+                history_df = pd.read_csv("prediction_history.csv")
+            else:
+                history_df = pd.DataFrame()
+
+            # Convert the new prediction to a DataFrame
+            new_entry_df = pd.DataFrame([input_features])
+
+            # Append the new prediction to the history
+            history_df = pd.concat([history_df, new_entry_df], ignore_index=True)
+
+            # Set "id" as index before saving
+            if "id" in history_df.index.names:
+                history_df.set_index("id", inplace=True)
+
+            # export df as prediction_history.csv
+            history_df.to_csv('../data/prediction_history.csv', mode="a", header=not os.path.exists('../data/prediction_history.csv'), index=False)
+        else:
+            st.error("Prediction could not be saved due to an error in generating the prediction.")
+
+    
     if __name__ == "__main__":
         # call the display form function
         submit_button = display_forms()
