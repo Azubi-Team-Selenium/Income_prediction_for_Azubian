@@ -10,8 +10,9 @@ from yaml.loader import SafeLoader
 
 
 st.set_page_config(
-    page_title= "Data Page", layout="wide"
-)
+        page_title="Data Page",
+        layout="wide",)
+
 
 
 # #load authentification credentials
@@ -49,7 +50,7 @@ else:
     # Logout User
     authenticator.logout('Logout', 'sidebar')
 
-
+    st.title("Data Page")
    
     train_df = pd.read_csv("../data/training_df.csv")
     #grouping all numeric columns
