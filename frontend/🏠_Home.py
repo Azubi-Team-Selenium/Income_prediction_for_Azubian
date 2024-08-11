@@ -40,7 +40,7 @@ if authentication_status is None:
      st.warning('Please Login with your username and password to access the app')
      test_code = """
             Guest Account
-            Username:guestuser
+            Username:Guest user
             Password: selenium2025
             """
      st.code(test_code)
@@ -53,18 +53,17 @@ else:
     # Logout User
     authenticator.logout('Logout', 'sidebar')
 
-
+    st.title("Home")
     #define function to get animation
     def lottie_url(url:str):
         r = requests.get(url)
         if r.status_code != 200:
             return None                 
         return r.json()
-    video_file = open("../images/AR-metaball.mp4", "rb")
-    video_bytes = video_file.read()
-    video_url = "https://ar-website-assets.s3.eu-west-3.amazonaws.com/AR-metaball.mp4"
+    
+    video_url = lottie_url("https://lottie.host/4daa3a00-5997-4968-8167-dbda109a159b/hTqEP6E4eV.json")
 
-    logo_path = "../images/second.png"
+    mach_img = lottie_url("https://lottie.host/f3cc30b8-c8a9-4ff9-b098-badb339f1156/ey8S2pPCHT.json")
 
     lottie_img = lottie_url("https://lottie.host/9f50ad42-37fa-48db-870c-74b018740507/3i0ws9t1Di.json")
 
@@ -93,13 +92,25 @@ else:
             
             
         with img_col:
-            st.video(video_file, loop=True, autoplay=True, muted=True)
+                     st_lottie(
+        video_url,
+        speed=0.05,
+        reverse= False,
+        loop=True,
+        quality="high",
+        key="lottieani",
+        height=300,
+        width=400
+
+    )
         st.write("---")
 
         cola, colb = st.columns(2)
         with colb:
+            st.write("##")
             st.markdown("""
                     **Income IQ** is your go-to tool for estimating your potential income based on various personal and professional factors.""")
+            st.write("##")
             st.markdown("""
                     Whether you are a recent graduate, a mid-career professional, or planning for retirement, our app provides valuable insights to help you make informed financial decisions.""")
         with cola:
@@ -107,11 +118,16 @@ else:
         st.write("---")
         colc, cold = st.columns(2)
         with colc:
-            st.markdown("""### Key Features
-    - **User-Friendly Interface:** Easy to navigate and input your data.
-    - **Accurate Predictions:** Our advanced algorithms analyze your input to provide precise income predictions.
-    - **Personalized Insights:** Get tailored advice based on your unique profile.
-    - **Comprehensive Data Analysis:** Explore detailed breakdowns of your predicted income and the factors influencing it."""
+            st.markdown("""### Key Features""")
+                        
+            st.markdown("""
+                        - **User-Friendly Interface:** Easy to navigate and input your data.
+                        
+                        - **Accurate Predictions:** Our advanced algorithms analyze your input to provide precise income predictions.
+                        
+                        - **Personalized Insights:** Get tailored advice based on your unique profile.
+                        
+                        - **Comprehensive Data Analysis:** Explore detailed breakdowns of your predicted income and the factors influencing it."""
                 
             )
         with cold:
@@ -129,23 +145,7 @@ else:
             st.markdown("""
                     Our vision is of a financial system that sets the global economy on a path of unlimited success. Our mission is to enable financial institutions or individuals to identify, quantify, track, and compare income profiles """)
             
-            ### How It Works
-    # 1. **Enter Your Details:** Provide information such as age, education level, employment status, and other relevant details.
-    # 2. **Submit Your Data:** Click the 'Predict' button to get your income estimation.
-    # 3. **View Results:** Review your predicted income and explore the detailed analysis provided.
-    # """)
-            
-    # ### Getting Started
-    # To begin, simply navigate to the 'Input Data' section and fill in your details. The more accurate your information, the better the predictions we can provide.
-
-    # ### Privacy and Security
-    # Your privacy is our priority. All data entered into the Income Predictor is securely stored and handled with the utmost confidentiality.
-
-    # ### Contact Us
-    # If you have any questions or need assistance, feel free to reach out to our support team at [support@example.com](mailto:support@example.com).
-
-    # Thank you for choosing Income Predictor. We are excited to help you plan for a brighter financial future!
-    # """)
+  
         with col2:
             st_lottie(
         lottie_home,
@@ -214,7 +214,7 @@ else:
                     height=300,
                     width=300)
                 st.write("""
-            If you have any questions or need assistance, feel free to reach out to our support team at [support@example.com](mailto:support@example.com).""")
+            If you have any questions or need assistance, feel free to reach out to our support team at [support@incomeiq.com](mailto:incomeiq@gmail.com).""")
                         
                 
                 st.write("---")
@@ -231,19 +231,45 @@ else:
                         st.write("""
 
 
-            Thank you for choosing Income IQ. We are excited to help you plan for a brighter financial future!
+            ## Thank you for choosing Income IQ. 
+                                 
+             We are excited to help you plan for a brighter financial future!
             """
             )
     if selected == "Explore":
+            col1, col2 = st.columns([2,1])
+            with col1:    
+                st.markdown("""### Getting Started""")
+                st.markdown(""" To begin, simply navigate to the 'Input Data' section and fill in your details. The more accurate your information, the better the predictions we can provide.""")
+                st.markdown("""We use two powerful machine learning algorithms for prediction. They include:""")
                 st.markdown("""
-                            Connect data from CSV, XLSX, or Google Sheets to any App, API, or FTP server in minutes
-                            Works with tools you already use. Simple, no-code setup.
-                            Automate end-to-end.#### We use our three powerful machine learning algorithms models to predict the risk of churn:
-                            -  ##### Catboost
-                            - ##### Logistic Regression
-                            - ##### SQB
-                            #### Want to try out with your own dataset? Say less!
-                            #### Just upload here in one click!""")
-                data_button = st.button("Upload data")#key="data")
-                if data_button:
-                    switch_page("Bulk_Prediction") 
+                            1. XGB Classifier - 95% accuracy
+
+                            2. Gradient Boosting Algorithm - 94% accuracy
+                            """)
+        
+                st.markdown("""### How Our Prediction App Works""")
+                st.markdown("""
+                1. **Enter Your Details:** Provide information such as age, education level, employment status, and other relevant details.
+                2. **Submit Your Data:** Click the 'Make Prediction' button to get your income estimation.
+                3. **View Results:** Review your predicted income and explore the detailed analysis provided in real time!.
+                            
+                ### **Want to give feedback or discuss your options?**""")
+                st.markdown("""Get in touch""")
+
+            with col2:
+                st_lottie(
+                mach_img,
+                speed=0.05,
+                reverse= False,
+                loop=True,
+                quality="high",
+                key="lottieanime",
+                height=300,
+                width=400
+
+            )
+                st.write("##")
+            
+            
+                
