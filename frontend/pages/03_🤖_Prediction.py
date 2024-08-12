@@ -245,7 +245,7 @@ else:
                 history_df.set_index("id", inplace=True)
 
             # export df as prediction_history.csv
-            history_df.to_csv('./prediction_data/prediction_history.csv', mode="a", header=not os.path.exists('./prediction_data/prediction_history.csv'), index=False)
+            history_df.to_csv('./data/prediction_history.csv', mode="a", header=not os.path.exists('./data/prediction_history.csv'), index=False)
         else:
             st.error("Prediction could not be saved due to an error in generating the prediction.")
 

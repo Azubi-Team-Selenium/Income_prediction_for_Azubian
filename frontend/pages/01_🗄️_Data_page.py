@@ -52,7 +52,7 @@ else:
 
     st.title("Data Page")
    
-    train_df = pd.read_csv("../data/training_df.csv")
+    train_df = pd.read_csv("./data/training_df.csv")
     #grouping all numeric columns
     numerics = train_df.select_dtypes("number").columns
     categoricals = train_df.select_dtypes("object").columns
