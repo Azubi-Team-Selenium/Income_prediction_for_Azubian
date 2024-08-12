@@ -40,7 +40,7 @@ if authentication_status is None:
      st.warning('Please Login with your username and password to access the app')
      test_code = """
             Guest Account
-            Username:Guest user
+            Username:guestuser
             Password: selenium2025
             """
      st.code(test_code)
@@ -204,7 +204,7 @@ else:
                             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
-                    local_css("../style/style.css")
+                    local_css("./style/style.css")
 
                 with col2:
                         st_lottie(
