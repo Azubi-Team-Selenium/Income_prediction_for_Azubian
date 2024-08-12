@@ -82,18 +82,7 @@ else:
                 "migration_code_change_in_msa", "migration_code_move_within_reg", "migration_code_change_in_reg", 
                 "residence_1_year_ago", "migration_prev_sunbelt", "importance_of_record"]
 
-    numeric_keys = ["age", "employment_stat", "wage_per_hour", "working_week_per_year", 
-                    "industry_code", "occupation_code", "total_employed", "gains", "losses",
-                    "stocks_status", "mig_year", "vet_benefit", "importance_of_record"]
-    for key in input_keys:
-        if key not in st.session_state:
-            if key in numeric_keys:
-                st.session_state[key] = 0  # Initialize numeric keys with 0
-            else:
-                st.session_state[key] = ""
-
-    
-
+        
     # Define function to accept inputs and display forms
     def display_forms():
         with st.form(key="input_features"):
@@ -103,7 +92,7 @@ else:
                 st.header("👤 Demographic Information Form")
                 st.text_input("Please enter your ID", key="id")
                 st.number_input("Please enter your age", min_value=0, max_value=120, step=1, key="age")
-                st.selectbox("Please select your gender", options=["Male", "Female"], key="gender")
+                st.selectbox("Please select your gender", options=['Female', 'Male'], key="gender")
                 st.selectbox("Please select your education", options=['High school graduate', '12th grade no diploma', 'Children',
                     'Bachelors degree(BA AB BS)', '7th and 8th grade', '11th grade', '9th grade', 'Masters degree(MA MS MEng MEd MSW MBA)',
                     '10th grade', 'Associates degree-academic program', '1st 2nd 3rd or 4th grade', 'Some college but no degree', 'Less than 1st grade',
@@ -120,17 +109,17 @@ else:
                     'Hungary', 'Puerto-Rico', 'England', 'Dominican-Republic', 'Japan', 'Canada', 'Ecuador', 'Italy', 'Cuba', 'Peru', 'Taiwan', 'South Korea',
                     'Poland', 'Nicaragua', 'Germany', 'Guatemala', 'India', 'Ireland', 'Honduras', 'France', 'Trinadad&Tobago', 'Thailand', 'Iran', 'Vietnam',
                     'Portugal', 'Laos', 'Panama', 'Scotland', 'Columbia', 'Jamaica', 'Greece', 'Haiti', 'Yugoslavia', 'Outlying-U S (Guam USVI etc)',
-                    'Holand-Netherlands', 'Hong Kong'], key="country_of_birth")
+                    'Holand-Netherlands', 'Hong Kong'], key="country_of_birth_own")
                 st.selectbox("Select your father's country of birth", options=['US', 'India', 'Poland', 'Germany', 'El-Salvador', 'Mexico',
                     'Puerto-Rico', 'Philippines', 'Greece', 'Canada', 'Ireland', 'Cambodia', 'Ecuador', 'China', 'Hungary', 'Dominican-Republic', 'Japan', 'Italy',
                     'Cuba', 'Peru', 'Jamaica', 'South Korea', 'Yugoslavia', 'Nicaragua', 'Columbia', 'Guatemala', 'France', 'England', 'Iran', 'Honduras',
                     'Haiti', 'Trinadad&Tobago', 'Outlying-U S (Guam USVI etc)', 'Thailand', 'Vietnam', 'Hong Kong', 'Portugal', 'Laos', 'Scotland', 'Taiwan',
-                    'Holand-Netherlands', 'Panama'], key="father_country_of_birth")
+                    'Holand-Netherlands', 'Panama'], key="country_of_birth_father")
                 st.selectbox("Select your mother's country of birth", options=['US', 'India', 'Peru', 'Germany', 'El-Salvador', 'Mexico',
                     'Puerto-Rico', 'Philippines', 'Canada', 'France', 'Cambodia', 'Italy', 'Ecuador', 'China', 'Hungary', 'Dominican-Republic', 'Japan', 'England',
                     'Cuba', 'Poland', 'South Korea', 'Yugoslavia', 'Scotland', 'Nicaragua', 'Guatemala', 'Holand-Netherlands', 'Greece', 'Ireland', 'Honduras',
                     'Haiti', 'Outlying-U S (Guam USVI etc)', 'Trinadad&Tobago', 'Thailand', 'Jamaica', 'Iran', 'Vietnam', 'Columbia', 'Portugal', 'Laos', 'Taiwan',
-                    'Hong Kong', 'Panama'], key="mother_country_of_birth")
+                    'Hong Kong', 'Panama'], key="country_of_birth_mother")
                 st.selectbox("Tax Status", options=['Head of household', 'Single', 'Nonfiler', 'Joint both 65+', 'Joint both under 65', 'Joint one under 65 & one 65+'], key="tax_status")
 
             with col2:
@@ -158,7 +147,7 @@ else:
                 st.number_input("Please enter your Stocks status", min_value=0, max_value=1000000, step=1, key="stocks_status")
 
             with col3:
-                st.header("🛂 Family and Immigration Information")
+                st.header("🛂Immigration and Household Information")
                 st.selectbox("Household Status", options=['Householder', 'Nonfamily householder', 'Child 18+ never marr Not in a subfamily', 'Child <18 never marr not in subfamily', 'Spouse of householder',
                     'Child 18+ spouse of subfamily RP', 'Secondary individual', 'Child 18+ never marr RP of subfamily', 'Other Rel 18+ spouse of subfamily RP',
                 'Grandchild <18 never marr not in subfamily', 'Other Rel <18 never marr child of subfamily RP', 'Other Rel 18+ ever marr RP of subfamily',
@@ -190,8 +179,8 @@ else:
                 st.number_input("Veterans Benefits (1- 'Yes', 2- 'No', 3- 'Not sure')", min_value=1, max_value=3, step=1, key="vet_benefit")
                 st.number_input("Please enter the Importance of Record", min_value=0, max_value=1000, key="importance_of_record")
 
-            # Add form submit button
-            submit_button = st.form_submit_button("Make Prediction", type="primary", use_container_width=True)
+                # Add form submit button
+                submit_button = st.form_submit_button("Make Prediction", type="primary", use_container_width=True)
         return submit_button
 
 
@@ -204,8 +193,9 @@ else:
             response = requests.post(xgb_classifier_endpoint, json=input_features)
         else:
             response = requests.post(gradient_boost_endpoint, json=input_features)
-        
+            
         if response.status_code == 200:
+            
             try:
                 result = response.json()
                 # Ensure all required keys exist in the response
@@ -221,7 +211,7 @@ else:
             except ValueError:
                 st.error("Error: Failed to parse response from API.")
         else:
-            st.error("Error: An error occurred while contacting the API.")
+            st.error(f"Error: A {response.status_code} error occurred while contacting the API.")
         
         return None, None, None, None  # Return None values if an error occurs
 
@@ -255,7 +245,7 @@ else:
                 history_df.set_index("id", inplace=True)
 
             # export df as prediction_history.csv
-            history_df.to_csv('../data/prediction_history.csv', mode="a", header=not os.path.exists('../data/prediction_history.csv'), index=False)
+            history_df.to_csv('./prediction_data/prediction_history.csv', mode="a", header=not os.path.exists('./prediction_data/prediction_history.csv'), index=False)
         else:
             st.error("Prediction could not be saved due to an error in generating the prediction.")
 
