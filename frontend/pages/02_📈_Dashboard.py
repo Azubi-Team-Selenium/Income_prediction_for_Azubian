@@ -53,7 +53,7 @@ else:
     st.markdown('This page provides visuals on Univariate, Bivariate, Multivariate, and KPIs analysis')
 
     # Load the data using pandas
-    train_data = pd.read_csv('../data/training_df.csv')
+    train_data = pd.read_csv('./data/training_df.csv')
 
     # Set default session state values if they don't exist
     if 'visualization_category' not in st.session_state:
