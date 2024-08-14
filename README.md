@@ -217,6 +217,9 @@ In order to run this project, you need:
    docker run -d --name mycontainer -p
    docker run -d --name mycontainer -p 
    ```
+### Streamlit frontend application
+
+[client](https://income-iq-frontend-latest.onrender.com/Prediction)
 
 
 <!-- AUTHORS -->
