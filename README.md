@@ -219,7 +219,7 @@ In order to run this project, you need:
    ```
 ### Streamlit frontend application
 
-[client](https://income-iq-frontend-latest.onrender.com/Prediction)
+[client](https://income-iq-frontend-latest-2.onrender.com)
 
 
 <!-- AUTHORS -->
